@@ -16,7 +16,7 @@ const functions = require('firebase-functions');
  * @type {HttpsFunction}
  */
 exports.generate = functions.https.onRequest((request, response) => {
-    console.log(request.query);
+    console.log(request.headers.origin);
     /**
      * Headers
      */
@@ -38,16 +38,16 @@ exports.generate = functions.https.onRequest((request, response) => {
     size = size < 16 ? 16 : size;
     size = size > 512 ? 512 : size;
 
-    let font_size = parseInt(request.query.font_size) ? parseInt(request.query.font_size) : (size / 2);
+    let font_size = parseInt(request.query['font-size']) ? parseInt(request.query['font-size']) : (size / 2);
 
     let length = parseInt(request.query.length) ? parseInt(request.query.length) : 2;
     length = length < 1 ? 1 : length;
     length = length > 2 ? 2 : length;
 
-    let text = request.query.text ? request.query.text.substr(0, length) : '';
+    let text = request.query.name ? request.query.name.substr(0, length) : '';
 
     let boolRegex = /^1|yes|on|true$/i
-    let rounded = request.query.round !== undefined ? boolRegex.test(request.query.round) : true;
+    let rounded = request.query.rounded !== undefined ? boolRegex.test(request.query.rounded) : true;
 
     let bold = request.query.bold !== undefined ? boolRegex.test(request.query.bold) : false;
 
