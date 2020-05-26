@@ -16,7 +16,7 @@ const functions = require('firebase-functions');
  * @type {HttpsFunction}
  */
 exports.generate = functions.https.onRequest((request, response) => {
-    console.log(request.headers.origin);
+    console.log(request.headers.referer);
     /**
      * Headers
      */
